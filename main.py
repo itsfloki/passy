@@ -15,6 +15,9 @@ def main():
 if __name__ == "__main__":
     try:
         main()
+    except ValueError as ve:
+        sys.stderr.write(f"{ve}")
+        sys.exit(1)
     except Exception as e:
         sys.stderr.write(f"Unexpected: {e}")
         sys.exit(1)
