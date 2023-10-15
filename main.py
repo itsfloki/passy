@@ -8,16 +8,16 @@ def run(conf: Config):
 
 
 def main():
-    conf = Config(sys.argv[1:])
-    run(conf)
+    try:
+        conf = Config(sys.argv[1:])
+        run(conf)
+    except ValueError as ve:
+        print(f"Error: {ve}", file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        print(f"Unexpected error: {e}", file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except ValueError as ve:
-        sys.stderr.write(f"{ve}")
-        sys.exit(1)
-    except Exception as e:
-        sys.stderr.write(f"Unexpected: {e}")
-        sys.exit(1)
+    main()
