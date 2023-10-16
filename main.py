@@ -1,10 +1,26 @@
+import os
 import sys
 from config import Config
 
 
+def configure():
+    """Configure environment"""
+    config_path = os.getenv("HOME") + "/.config/passy"
+    os.makedirs(config_path, exist_ok=True)
+
+    config_file_path = os.path.join(config_path, "data.json")
+
+    with open(config_file_path, 'w') as cf:
+        cf.write('')
+    print("Configuration added.")
+
+
 def run(conf: Config):
-    print(conf.option())
-    print(conf.label())
+    match conf.option():
+        case "configure":
+            configure()
+        case _:
+            raise ValueError("Invalid option.")
 
 
 def main():
