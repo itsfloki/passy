@@ -1,6 +1,7 @@
 import os
 import sys
 from config import Config
+from manager import Manager
 
 
 def configure():
@@ -15,10 +16,18 @@ def configure():
     print("Configuration added.")
 
 
+def generate(label: str, length: int) -> str:
+    pass_manager = Manager(label)
+    return pass_manager.create(length)
+
+
 def run(conf: Config):
     match conf.option():
         case "configure":
             configure()
+        case "generate":
+            password = generate(conf.value(), conf.length())
+            print(password)
         case _:
             raise ValueError("Invalid option.")
 

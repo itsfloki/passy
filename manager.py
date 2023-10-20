@@ -8,7 +8,7 @@ class Manager:
     def __init__(self, label: str):
         self._label = label
 
-    def _generate(length: int) -> str:
+    def _generate(self, length: int) -> str:
         population = string.ascii_letters + string.digits + "#$@"
         return ''.join(random.sample(population, length))
 
