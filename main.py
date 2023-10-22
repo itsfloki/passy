@@ -33,6 +33,16 @@ def generate(label: str, length: int) -> str:
     return password
 
 
+def view(label: str) -> str:
+    data = []
+
+    with open(INVENTORY_FILE, 'r') as fp:
+        data = json.load(fp)
+
+    new_data = [d for d in data if d.get('label') == label]
+    return new_data[0]["password"]
+
+
 def delete(label: str) -> str:
     data = []
 
@@ -54,6 +64,8 @@ def run(conf: Config):
             print(password)
         case "delete":
             print(delete(conf.value()))
+        case "view":
+            print(view(conf.value()))
         case _:
             raise ValueError("Invalid option.")
 
