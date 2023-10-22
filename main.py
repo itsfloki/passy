@@ -33,6 +33,18 @@ def generate(label: str, length: int) -> str:
     return password
 
 
+def delete(label: str) -> str:
+    data = []
+
+    with open(INVENTORY_FILE, 'r') as fp:
+        data = json.load(fp)
+
+    new_data = [d for d in data if d.get('label') != label]
+    with open(INVENTORY_FILE, 'w') as fp:
+        json.dump(new_data, fp, sort_keys=True, indent=4)
+    return label
+
+
 def run(conf: Config):
     match conf.option():
         case "configure":
@@ -40,6 +52,8 @@ def run(conf: Config):
         case "generate":
             password = generate(conf.value(), conf.length())
             print(password)
+        case "delete":
+            print(delete(conf.value()))
         case _:
             raise ValueError("Invalid option.")
 
